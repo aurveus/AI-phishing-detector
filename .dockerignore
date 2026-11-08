@@ -1,0 +1,9 @@
+venv/
+.git/
+data/
+results/
+models/phishing-detector-model/
+__pycache__/
+*.pyc
+tests/
+docs/

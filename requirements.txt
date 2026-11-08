@@ -1,0 +1,6 @@
+# Runtime (the Streamlit app). Lower bounds are the first versions without the known vulnerabilities found by pip-audit
+# (see docs/SECURITY_AND_REVIEW.md); an upper bound is deliberately not set so security fixes are picked up.
+streamlit>=1.54.0
+torch>=2.8.0
+transformers>=4.51.0
+requests>=2.32.0

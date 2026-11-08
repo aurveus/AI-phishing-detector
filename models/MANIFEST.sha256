@@ -1,0 +1,7 @@
+# SHA-256 of every file the model needs. Checked after download (phishing_detector/model_store.py).
+7f48b67f949f9881264069d2138c74a8365793657490dac3b041b85d5bb7aee0  config.json
+bd3dd952d05344a134243c15c2dbf153a08e21f1e9d8c07e8a7287cb192ab003  model.safetensors
+3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6  special_tokens_map.json
+2fc687b11de0bc1b3d8348f92e3b49ef1089a621506c7661fbf3248fcd54947e  tokenizer.json
+21c3bea73b6711617c657664adcd4d0b02ce20d2db4b2ebdd722a6da8da28bcd  tokenizer_config.json
+07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3  vocab.txt
