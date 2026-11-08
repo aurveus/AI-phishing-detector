@@ -8,7 +8,7 @@ from phishing_detector.examples import EXAMPLES
 from phishing_detector.model_store import ensure_model
 from phishing_detector.signals import defanged_links, find_signals
 
-st.set_page_config(page_title="Phishing Email Detector", page_icon="🎣", layout="centered")
+st.set_page_config(page_title="Phishing Email Detector", layout="centered")
 
 # The HTML below only ever contains fixed text and numbers we format ourselves, never the pasted email.
 st.markdown(
@@ -65,7 +65,7 @@ with st.sidebar:
 
 # ----- header --------------------------------------------------------------------------------------------
 st.markdown(
-    '<div class="hero"><h1>🎣 Phishing Email Detector</h1>'
+    '<div class="hero"><h1>Phishing Email Detector</h1>'
     "<p>Paste an email below and see whether it looks like phishing, and why.</p></div>",
     unsafe_allow_html=True,
 )
@@ -113,7 +113,7 @@ if st.session_state.run:
                else f"The model is {confidence:.0%} sure. Still be careful with links and attachments.")
         color = "#e5484d" if bad else "#30a46c"
         st.markdown(
-            f'<div class="verdict {"bad" if bad else "good"}"><div class="t">{"⚠️" if bad else "✅"} {title}</div>'
+            f'<div class="verdict {"bad" if bad else "good"}"><div class="t">{title}</div>'
             f'<div class="s">{sub}</div>'
             f'<div class="bar"><div style="width:{score * 100:.1f}%;background:{color}"></div></div>'
             f'<div class="barlabel"><span>Safe</span><span>Phishing score {score:.0%}</span><span>Phishing</span></div>'

@@ -1,9 +1,9 @@
-# 🎣 AI Phishing Detector
+# AI Phishing Detector
 
 Paste in an email and this app tells you whether it looks like phishing, and shows you the warning signs it spotted along the way. Under the hood it's a DistilBERT model I fine-tuned on about 18,600 labeled emails, wrapped in a small Streamlit web app.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/aurveus/AI-phishing-detector)
-[![Live demo on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Live%20demo-Hugging%20Face-yellow)](https://huggingface.co/spaces/aurveus/Ai-Phishing-Detector)
+[![Live demo on Hugging Face](https://img.shields.io/badge/Live%20demo-Hugging%20Face-yellow)](https://huggingface.co/spaces/aurveus/Ai-Phishing-Detector)
 
 | A phishing email | A normal email |
 |---|---|

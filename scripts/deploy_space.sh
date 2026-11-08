@@ -12,7 +12,7 @@ cd "$(dirname "$0")/.."
 
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 {
-  printf -- '---\ntitle: AI Phishing Detector\nemoji: 🎣\ncolorFrom: blue\ncolorTo: red\nsdk: docker\napp_port: 8501\npinned: false\n'
+  printf -- '---\ntitle: AI Phishing Detector\ncolorFrom: blue\ncolorTo: red\nsdk: docker\napp_port: 8501\npinned: false\n'
   printf -- 'short_description: Paste an email, see if it looks like phishing and why.\n---\n\n'
   # Hugging Face rejects plain binary files (the screenshots), so the Space README links to the GitHub copies instead.
   sed 's#(docs/img/#(https://raw.githubusercontent.com/aurveus/AI-phishing-detector/main/docs/img/#g' README.md
@@ -24,7 +24,7 @@ git rm -r -q --cached docs/img
 git update-index --add --cacheinfo "100644,$(git hash-object -w "$tmp/README.md"),README.md"
 tree="$(git write-tree)"
 unset GIT_INDEX_FILE
-commit="$(git commit-tree "$tree" -m "AI Phishing Detector: DistilBERT email classifier with a Streamlit app")"
+commit="$(git commit-tree "$tree" -m "Deploy the phishing detector to the Space")"
 
 echo "Space commit: $commit"
 git show "$commit:README.md" | head -11
