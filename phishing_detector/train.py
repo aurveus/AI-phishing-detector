@@ -11,6 +11,7 @@ The published model was trained with the first version (80/20 split, test set us
 docs/SECURITY_AND_REVIEW.md for what that means for the reported numbers.
 """
 import argparse
+import os
 
 import numpy as np
 import torch
@@ -59,6 +60,9 @@ def main():
     set_seed(config.SEED)
     print("GPU available:", torch.cuda.is_available())
 
+    if not os.path.exists(args.csv):
+        raise SystemExit(f"Dataset not found: {args.csv}
+Download Phishing_Email.csv (see the README) and put it there, or pass --csv.")
     df = load_dataset(args.csv)
     before = len(df)
     df = df.drop_duplicates(subset="text").reset_index(drop=True)

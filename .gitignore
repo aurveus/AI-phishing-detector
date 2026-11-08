@@ -1,19 +1,16 @@
-# Environments and secrets
+# virtual environments and secrets
 venv/
 .venv/
 .env
 .streamlit/secrets.toml
 
-# Python
+# python
 __pycache__/
 *.pyc
 
-# Large or regenerable artifacts (see data/README.md and models/README.md)
-data/*
-!data/README.md
-models/*
-!models/README.md
-!models/MANIFEST.sha256
+# too big or easy to regenerate: the dataset, the downloaded model, training output
+data/
+models/
 results/
 logs/
 *.zip

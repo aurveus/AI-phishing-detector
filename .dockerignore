@@ -2,7 +2,7 @@ venv/
 .git/
 data/
 results/
-models/phishing-detector-model/
+models/
 __pycache__/
 *.pyc
 tests/

@@ -10,7 +10,7 @@ from phishing_detector.signals import defanged_links, find_signals
 
 st.set_page_config(page_title="Phishing Email Detector", page_icon="🎣", layout="centered")
 
-# Everything injected below is fixed text or numbers we format ourselves, never the pasted email.
+# The HTML below only ever contains fixed text and numbers we format ourselves, never the pasted email.
 st.markdown(
     """
     <style>
@@ -49,32 +49,32 @@ def clear() -> None:
 # ----- sidebar -------------------------------------------------------------------------------------------
 with st.sidebar:
     st.header("About")
-    st.write("A DistilBERT language model fine-tuned on about 18,600 labeled emails reads the text and scores how "
+    st.write("A small language model (DistilBERT) that I fine-tuned on about 18,600 labeled emails reads the text and scores how "
              "likely it is to be phishing.")
     st.metric("Accuracy on held-out test emails", "97.5%")
     st.metric("Phishing emails caught", "98.1%")
     st.divider()
     st.subheader("Good to know")
     st.markdown(
-        "- Reads **text only**: not headers, attachments or where a link really goes.\n"
-        "- Trained on one English dataset; a cleverly reworded scam can slip past.\n"
-        "- Your text is processed in memory and **not stored**.\n"
-        "- A screening aid, not a guarantee."
+        "- It only reads the **text**. It can't see headers, attachments or where a link really goes.\n"
+        "- It learned from one English dataset, so a cleverly reworded scam can slip past.\n"
+        "- What you paste is handled in memory and **never stored**.\n"
+        "- Treat it as a second opinion, not a guarantee."
     )
-    st.caption("[Source code and security review](https://github.com/aurveus/AI-phishing-detector)")
+    st.caption("[Code and security review on GitHub](https://github.com/aurveus/AI-phishing-detector)")
 
 # ----- header --------------------------------------------------------------------------------------------
 st.markdown(
     '<div class="hero"><h1>🎣 Phishing Email Detector</h1>'
-    "<p>Paste an email and see whether it looks like phishing, and why.</p></div>",
+    "<p>Paste an email below and see whether it looks like phishing, and why.</p></div>",
     unsafe_allow_html=True,
 )
 
 try:
     classifier = load_classifier()
-except Exception:  # offline, blocked download or checksum failure: say so instead of showing a traceback
-    st.error("The model could not be loaded. If this is the first start, check your internet connection and try again. "
-             "If it keeps failing, the downloaded file did not match its checksum and was refused.")
+except Exception:  # offline, blocked download or bad checksum: show a plain message, not a traceback
+    st.error("Couldn't load the model. If this is your first time running the app, check your internet connection and try again. "
+             "If it keeps happening, the downloaded file didn't match its checksum, so the app refused to use it.")
     st.stop()
 
 # A shareable demo link: ?example=phishing or ?example=safe
@@ -98,19 +98,19 @@ if st.button("Check this email", key="detect", type="primary", use_container_wid
 
 if st.session_state.run:
     if not text.strip():
-        st.warning("Paste some email text first, or try one of the examples above.")
+        st.warning("There's nothing to check yet. Paste an email, or try one of the examples above.")
     else:
         try:
             result = classifier.predict(text)
         except ValueError as e:
-            st.error(f"Could not check this text: {e}.")
+            st.error(f"Sorry, I couldn't check that text: {e}.")
             st.stop()
         score = result["phishing_probability"]
         bad = result["label"] == "Phishing Email"
         confidence = score if bad else 1 - score
         title = "Likely phishing" if bad else "Looks safe"
-        sub = (f"The model is {confidence:.0%} sure. Do not click links or reply." if bad
-               else f"The model is {confidence:.0%} sure. Stay careful with links and attachments.")
+        sub = (f"The model is {confidence:.0%} sure. Don't click any links or reply to it." if bad
+               else f"The model is {confidence:.0%} sure. Still be careful with links and attachments.")
         color = "#e5484d" if bad else "#30a46c"
         st.markdown(
             f'<div class="verdict {"bad" if bad else "good"}"><div class="t">{"⚠️" if bad else "✅"} {title}</div>'
@@ -131,6 +131,6 @@ if st.session_state.run:
                     st.caption("Links found, made harmless so they cannot be clicked:")
                     st.code("\n".join(links), language=None)
             else:
-                st.write("No obvious warning signs such as links, urgency or requests for passwords. "
+                st.write("Nothing obvious stood out: no links, no pushy wording, no requests for passwords. "
                          "The verdict above comes from the model.")
-            st.caption("These checks are simple hints for your benefit. They are not part of the model's score.")
+            st.caption("These are simple checks to help you judge for yourself. They don't affect the model's score.")

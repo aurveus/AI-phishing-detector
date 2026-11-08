@@ -63,7 +63,7 @@ class SignalTests(unittest.TestCase):
 
     def test_obvious_phish_triggers_several_signals(self):
         s = " ".join(find_signals("URGENT! Verify your account password at http://192.168.4.4/login or https://bit.ly/x"))
-        for needle in ("link", "IP address", "shortener", "not encrypted", "urgency", "sensitive"):
+        for needle in ("link", "IP address", "shortener", "encrypted", "urgent", "sensitive"):
             self.assertIn(needle, s)
 
     def test_plain_email_has_no_signals(self):

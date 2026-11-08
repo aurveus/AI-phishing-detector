@@ -1,10 +1,10 @@
 """Fetch the trained model safely.
 
-Steps: https only, timeout, size cap, extract into a temporary folder with a path check (no zip-slip), verify every
-file against models/MANIFEST.sha256, only then move it into place.
+How the download stays safe: https only, a timeout and a size limit, unzip into a temp folder with a check that no
+file escapes it, compare every file with model.sha256, and only then move it into place.
 
-  python -m phishing_detector.model_store manifest   # (re)write the manifest from the local model folder
-  python -m phishing_detector.model_store verify     # check the local model folder against the manifest
+  python -m phishing_detector.model_store manifest   # write model.sha256 from the local model folder
+  python -m phishing_detector.model_store verify     # check the local model folder against it
 """
 import hashlib
 import shutil
@@ -37,7 +37,7 @@ def read_manifest(path: Path = config.MANIFEST) -> dict:
 
 
 def write_manifest(model_dir: Path = config.MODEL_DIR, path: Path = config.MANIFEST) -> None:
-    lines = ["# SHA-256 of every file the model needs. Checked after download (phishing_detector/model_store.py)."]
+    lines = ["# SHA-256 of every file the model needs. Checked after download by model_store.py."]
     for p in sorted(model_dir.iterdir()):
         if p.is_file():
             lines.append(f"{sha256_file(p)}  {p.name}")
