@@ -131,6 +131,7 @@ phishing_detector/
   data.py                  dataset loading and the train/test split
   train.py                 fine-tuning script (validation set, de-duplicated, runs on CPU or GPU)
   evaluate.py              scores the saved model
+scripts/deploy_space.sh    publish to a free Hugging Face Space (adds the Space's config header)
 tests/                     unit tests, download-safety tests, and a click-through test of the UI
 models/                    model folder (created at first run) + MANIFEST.sha256
 data/                      put Phishing_Email.csv here (not in git)
