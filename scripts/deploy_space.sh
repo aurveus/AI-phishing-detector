@@ -14,11 +14,13 @@ tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 {
   printf -- '---\ntitle: AI Phishing Detector\nemoji: 🎣\ncolorFrom: blue\ncolorTo: red\nsdk: docker\napp_port: 8501\npinned: false\n'
   printf -- 'short_description: Paste an email, see if it looks like phishing and why.\n---\n\n'
-  cat README.md
+  # Hugging Face rejects plain binary files (the screenshots), so the Space README links to the GitHub copies instead.
+  sed 's#(docs/img/#(https://raw.githubusercontent.com/aurveus/AI-phishing-detector/main/docs/img/#g' README.md
 } > "$tmp/README.md"
 
 export GIT_INDEX_FILE="$tmp/index"
 git read-tree HEAD
+git rm -r -q --cached docs/img
 git update-index --add --cacheinfo "100644,$(git hash-object -w "$tmp/README.md"),README.md"
 tree="$(git write-tree)"
 unset GIT_INDEX_FILE
